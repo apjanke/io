@@ -405,22 +405,26 @@ void IoState_registerProtoWithNamed_(IoState *self, IoObject *proto, const char 
 }
 */
 
-void IoState_registerProtoWithFunc_(IoState *self, IoObject *proto, const char *v)
+void IoState_registerProtoWithPointer_(IoState *self, IoObject *proto, const void *v)
 {
-	IoState_registerProtoWithId_(self, proto, v);
-}
-
-IOVM_API void IoState_registerProtoWithId_(IoState *self, IoObject *proto, const char *v)
-{
-	if (PointerHash_at_(self->primitives, (void *)v))
+	if (PointerHash_at_(self->primitives, v))
 	{
 		printf("Error registering proto: %s\n", IoObject_name(proto));
 		IoState_fatalError_(self, "IoState_registerProtoWithFunc_() Error: attempt to add the same proto twice");
 	}
 
 	IoState_retain_(self, proto);
-	PointerHash_at_put_(self->primitives, (void *)v, proto);
-	//printf("registered %s\n", IoObject_name(proto));
+	PointerHash_at_put_(self->primitives, v, proto);
+	//printf("registered %s\n", IoObject_name(proto));	
+}
+void IoState_registerProtoWithFunc_(IoState *self, IoObject *proto, const void *v)
+{
+	IoState_registerProtoWithPointer_(self, proto, v);
+}
+
+IOVM_API void IoState_registerProtoWithId_(IoState *self, IoObject *proto, const char *v)
+{
+	IoState_registerProtoWithPointer_(self, proto, v);
 }
 
 IoObject *IoState_protoWithName_(IoState *self, const char *name)

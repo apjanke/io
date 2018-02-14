@@ -28,7 +28,7 @@ BASEKIT_API PointerHash *PointerHash_clone(PointerHash *self);
 BASEKIT_API void PointerHash_free(PointerHash *self);
 
 //BASEKIT_API void PointerHash_at_put_(PointerHash *self, void *k, void *v);
-BASEKIT_API void PointerHash_removeKey_(PointerHash *self, void *k);
+BASEKIT_API void PointerHash_removeKey_(PointerHash *self, const void *k);
 BASEKIT_API size_t PointerHash_size(PointerHash *self); // actually the keyCount
 
 BASEKIT_API size_t PointerHash_memorySize(PointerHash *self);

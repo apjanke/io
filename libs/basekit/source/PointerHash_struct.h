@@ -11,7 +11,7 @@ extern "C" {
 
 typedef struct
 {
-	void *k;
+	const void *k;
 	void *v;
 } PointerHashRecord;
 	

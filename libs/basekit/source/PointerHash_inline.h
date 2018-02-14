@@ -29,7 +29,7 @@ IOINLINE unsigned int PointerHash_hash_more(PointerHash *self, unsigned int hash
 
 // -----------------------------------
 
-IOINLINE PointerHashRecord *PointerHash_record1_(PointerHash *self, void *k)
+IOINLINE PointerHashRecord *PointerHash_record1_(PointerHash *self, const void *k)
 {
 	// the ~| 0x1 before the mask ensures an odd pos
 	intptr_t kk = (intptr_t)k;
@@ -37,7 +37,7 @@ IOINLINE PointerHashRecord *PointerHash_record1_(PointerHash *self, void *k)
 	return PointerHashRecords_recordAt_(self->records, pos);
 }
 
-IOINLINE PointerHashRecord *PointerHash_record2_(PointerHash *self, void *k)
+IOINLINE PointerHashRecord *PointerHash_record2_(PointerHash *self, const void *k)
 {
 	// the | 0x1 before the mask ensures an even pos
 	intptr_t kk = (intptr_t)k;
@@ -46,7 +46,7 @@ IOINLINE PointerHashRecord *PointerHash_record2_(PointerHash *self, void *k)
 	return PointerHashRecords_recordAt_(self->records, pos);
 }
 
-IOINLINE void *PointerHash_at_(PointerHash *self, void *k)
+IOINLINE void *PointerHash_at_(PointerHash *self, const void *k)
 {
 	PointerHashRecord *r;
 	
@@ -64,12 +64,12 @@ IOINLINE size_t PointerHash_count(PointerHash *self)
 	return self->keyCount;
 }
 
-IOINLINE int PointerHashKey_hasKey_(PointerHash *self, void *key)
+IOINLINE int PointerHashKey_hasKey_(PointerHash *self, const void *key)
 {
 	return PointerHash_at_(self, key) != NULL;
 }
 
-IOINLINE void PointerHash_at_put_(PointerHash *self, void *k, void *v)
+IOINLINE void PointerHash_at_put_(PointerHash *self, const void *k, void *v)
 {
 	PointerHashRecord *r;
 	
@@ -141,7 +141,7 @@ IOINLINE void PointerHash_clean(PointerHash *self)
 	PointerHash *_self = (self);\
 	unsigned char *_records = _self->records;\
 	size_t _i, _size = _self->size;\
-	void *pkey;\
+	const void *pkey;\
 	void *pvalue;\
 	\
 	for (_i = 0; _i < _size; _i ++)\

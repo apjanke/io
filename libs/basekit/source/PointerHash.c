@@ -128,7 +128,7 @@ void PointerHash_shrink(PointerHash *self)
 	PointerHash_resizeTo_(self, self->size / 2);
 }
 
-void PointerHash_removeKey_(PointerHash *self, void *k)
+void PointerHash_removeKey_(PointerHash *self, const void *k)
 {
 	PointerHashRecord *r;
 	

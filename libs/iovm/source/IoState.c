@@ -488,7 +488,7 @@ void MissingProtoError(void)
 
 IoObject *IoState_protoWithId_(IoState *self, const char *v)
 {
-	IoObject *proto = PointerHash_at_(self->primitives, (void *)v);
+	IoObject *proto = PointerHash_at_(self->primitives, v);
 
 	//printf("IoState_protoWithId_(self, %s)\n", v);
 
